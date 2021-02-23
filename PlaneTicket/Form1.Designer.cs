@@ -31,11 +31,8 @@
 			this.UpDwnAdults = new System.Windows.Forms.NumericUpDown();
 			this.txtName = new System.Windows.Forms.TextBox();
 			this.dateTimeDOB = new System.Windows.Forms.DateTimePicker();
-			this.radioExtraBags = new System.Windows.Forms.RadioButton();
 			this.UpDwnExtraBags = new System.Windows.Forms.NumericUpDown();
 			this.dateTimeDeparture = new System.Windows.Forms.DateTimePicker();
-			this.radioReturn = new System.Windows.Forms.RadioButton();
-			this.radioFreqDiscount = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.UpDwnChild = new System.Windows.Forms.NumericUpDown();
@@ -50,6 +47,9 @@
 			this.label9 = new System.Windows.Forms.Label();
 			this.lblCost = new System.Windows.Forms.Label();
 			this.btnGetCost = new System.Windows.Forms.Button();
+			this.checkExtraBags = new System.Windows.Forms.CheckBox();
+			this.checkReturn = new System.Windows.Forms.CheckBox();
+			this.CheckFrequent = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.UpDwnAdults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.UpDwnExtraBags)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.UpDwnChild)).BeginInit();
@@ -90,16 +90,6 @@
 			this.dateTimeDOB.Size = new System.Drawing.Size(220, 20);
 			this.dateTimeDOB.TabIndex = 3;
 			// 
-			// radioExtraBags
-			// 
-			this.radioExtraBags.AutoSize = true;
-			this.radioExtraBags.Location = new System.Drawing.Point(119, 241);
-			this.radioExtraBags.Name = "radioExtraBags";
-			this.radioExtraBags.Size = new System.Drawing.Size(14, 13);
-			this.radioExtraBags.TabIndex = 4;
-			this.radioExtraBags.TabStop = true;
-			this.radioExtraBags.UseVisualStyleBackColor = true;
-			// 
 			// UpDwnExtraBags
 			// 
 			this.UpDwnExtraBags.Location = new System.Drawing.Point(219, 241);
@@ -118,28 +108,6 @@
 			this.dateTimeDeparture.Name = "dateTimeDeparture";
 			this.dateTimeDeparture.Size = new System.Drawing.Size(220, 20);
 			this.dateTimeDeparture.TabIndex = 6;
-			// 
-			// radioReturn
-			// 
-			this.radioReturn.AutoSize = true;
-			this.radioReturn.Location = new System.Drawing.Point(118, 303);
-			this.radioReturn.Name = "radioReturn";
-			this.radioReturn.Size = new System.Drawing.Size(57, 17);
-			this.radioReturn.TabIndex = 7;
-			this.radioReturn.TabStop = true;
-			this.radioReturn.Text = "Return";
-			this.radioReturn.UseVisualStyleBackColor = true;
-			// 
-			// radioFreqDiscount
-			// 
-			this.radioFreqDiscount.AutoSize = true;
-			this.radioFreqDiscount.Location = new System.Drawing.Point(119, 327);
-			this.radioFreqDiscount.Name = "radioFreqDiscount";
-			this.radioFreqDiscount.Size = new System.Drawing.Size(137, 17);
-			this.radioFreqDiscount.TabIndex = 8;
-			this.radioFreqDiscount.TabStop = true;
-			this.radioFreqDiscount.Text = "Frequent Flyer Discount";
-			this.radioFreqDiscount.UseVisualStyleBackColor = true;
 			// 
 			// label1
 			// 
@@ -250,7 +218,7 @@
 			// label9
 			// 
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(163, 243);
+			this.label9.Location = new System.Drawing.Point(140, 243);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(41, 13);
 			this.label9.TabIndex = 21;
@@ -276,11 +244,43 @@
 			this.btnGetCost.UseVisualStyleBackColor = true;
 			this.btnGetCost.Click += new System.EventHandler(this.btnGetCost_Click);
 			// 
+			// checkExtraBags
+			// 
+			this.checkExtraBags.AutoSize = true;
+			this.checkExtraBags.Location = new System.Drawing.Point(119, 243);
+			this.checkExtraBags.Name = "checkExtraBags";
+			this.checkExtraBags.Size = new System.Drawing.Size(15, 14);
+			this.checkExtraBags.TabIndex = 25;
+			this.checkExtraBags.UseVisualStyleBackColor = true;
+			// 
+			// checkReturn
+			// 
+			this.checkReturn.AutoSize = true;
+			this.checkReturn.Location = new System.Drawing.Point(117, 307);
+			this.checkReturn.Name = "checkReturn";
+			this.checkReturn.Size = new System.Drawing.Size(58, 17);
+			this.checkReturn.TabIndex = 26;
+			this.checkReturn.Text = "Return";
+			this.checkReturn.UseVisualStyleBackColor = true;
+			// 
+			// CheckFrequent
+			// 
+			this.CheckFrequent.AutoSize = true;
+			this.CheckFrequent.Location = new System.Drawing.Point(117, 330);
+			this.CheckFrequent.Name = "CheckFrequent";
+			this.CheckFrequent.Size = new System.Drawing.Size(58, 17);
+			this.CheckFrequent.TabIndex = 27;
+			this.CheckFrequent.Text = "Return";
+			this.CheckFrequent.UseVisualStyleBackColor = true;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(381, 415);
+			this.Controls.Add(this.CheckFrequent);
+			this.Controls.Add(this.checkReturn);
+			this.Controls.Add(this.checkExtraBags);
 			this.Controls.Add(this.btnGetCost);
 			this.Controls.Add(this.lblCost);
 			this.Controls.Add(this.label9);
@@ -295,11 +295,8 @@
 			this.Controls.Add(this.UpDwnChild);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.radioFreqDiscount);
-			this.Controls.Add(this.radioReturn);
 			this.Controls.Add(this.dateTimeDeparture);
 			this.Controls.Add(this.UpDwnExtraBags);
-			this.Controls.Add(this.radioExtraBags);
 			this.Controls.Add(this.dateTimeDOB);
 			this.Controls.Add(this.txtName);
 			this.Controls.Add(this.UpDwnAdults);
@@ -322,11 +319,8 @@
 		private System.Windows.Forms.NumericUpDown UpDwnAdults;
 		private System.Windows.Forms.TextBox txtName;
 		private System.Windows.Forms.DateTimePicker dateTimeDOB;
-		private System.Windows.Forms.RadioButton radioExtraBags;
 		private System.Windows.Forms.NumericUpDown UpDwnExtraBags;
 		private System.Windows.Forms.DateTimePicker dateTimeDeparture;
-		private System.Windows.Forms.RadioButton radioReturn;
-		private System.Windows.Forms.RadioButton radioFreqDiscount;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.NumericUpDown UpDwnChild;
@@ -341,6 +335,9 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Label lblCost;
 		private System.Windows.Forms.Button btnGetCost;
+		private System.Windows.Forms.CheckBox checkExtraBags;
+		private System.Windows.Forms.CheckBox checkReturn;
+		private System.Windows.Forms.CheckBox CheckFrequent;
 	}
 }
 

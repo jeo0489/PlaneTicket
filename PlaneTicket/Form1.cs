@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Globalization;
+
 namespace PlaneTicket {
 	public partial class Form1 : Form {
 		private string[] destinations = {
@@ -62,10 +64,10 @@ namespace PlaneTicket {
 		}
 
 		private bool validExtraBag() {
-			if (radioExtraBags.Checked && UpDwnExtraBags.Value <= 0) {
+			if (checkExtraBags.Checked && UpDwnExtraBags.Value <= 0) {
 				MessageBox.Show("The extra bagagge amount (in kg) must be > 0!");
 				return false;
-			} else if (radioExtraBags.Checked && UpDwnExtraBags.Value > 25) {
+			} else if (checkExtraBags.Checked && UpDwnExtraBags.Value > 25) {
 				MessageBox.Show("The extra bagagge amount (in kg) must be <= 25!");
 				return false;
 			}
@@ -92,14 +94,18 @@ namespace PlaneTicket {
 			return -1;
 		}
 
+		decimal extraBagsCost() {
+			return UpDwnExtraBags.Value * (3 * 3);
+		}
+
 		private float discountForX(int X) {
 			// Returns a multiplier for the cost of an individual to be multiplied by
 			float mult = 1f;
 
-			if(X == 1) { // Gets child discount
-				mult = mult - 0.15f;			// 15 percent off
-			} else if (X == 2) { // Gets OAP discount
-				mult = mult = 0.1f;				// 10 percent off
+			if(X == 1) {						// Gets child discount
+				mult = mult - 0.35f;			// 35 percent off
+			} else if (X == 2) {				// Gets OAP discount
+				mult = mult = 0.15f;			// 15 percent off
 			}
 			
 			return mult;
@@ -107,11 +113,25 @@ namespace PlaneTicket {
 
 		private float finalDiscount() {
 			// Returns a multiplier for the total cost to be multiplied by
-			/* Global Discounts include:
-			 *		
-			 * 
+			/* Global factors include:
+			 *		Frequent flyer
+			 *		Time of year
 			 */
 			float mult = 1f;
+			int day = dateTimeDeparture.Value.DayOfYear;
+
+			if (CheckFrequent.Enabled) {
+				mult -= 0.15f;						// 20 percent off
+			}
+
+			if (day < 171 && day > 0) {				// In spring
+				mult -= 0.05f;
+			} else if (day > 171 && day < 265) {	// In Summer
+				mult += 0.30f;
+			} else {								// autumn / winter
+				mult -= 0.1f;
+			}
+
 			return mult;
 		}
 
@@ -133,8 +153,8 @@ namespace PlaneTicket {
 			return -1.0f;
 		}
 
-		private void showCost(float cost) {
-			lblCost.Text = "";
+		private void showCost(decimal cost) {
+			lblCost.Text = cost.ToString("C", CultureInfo.CurrentCulture);
 		}
 
 		void btnGetCost_Click(object sender, EventArgs e) {
@@ -145,15 +165,20 @@ namespace PlaneTicket {
 			 */
 			int passengers = (int)UpDwnAdults.Value + (int)UpDwnChild.Value + (int)UpDwnOAP.Value;
 			int numOfAdults = (int)UpDwnAdults.Value, numOfChildren = (int)UpDwnChild.Value, numOfOAP = (int)UpDwnOAP.Value;
-			float totalCost;
+			decimal totalCost;
 			float[] individualCosts = { 0.0f, 0.0f, 0.0f };
+			// TODO - Check if return
 			individualCosts[0] = costForX(0, numOfAdults);
 			individualCosts[1] = costForX(1, numOfChildren);
 			individualCosts[2] = costForX(2, numOfOAP);
 
 			if (allValid()) {
 
-				totalCost = individualCosts.Sum() * finalDiscount();
+				if (checkReturn.Enabled) {
+					totalCost = 2 * ((decimal) individualCosts.Sum() * (decimal) finalDiscount() + extraBagsCost());
+				} else {
+					totalCost = (decimal) individualCosts.Sum() * (decimal) finalDiscount() + extraBagsCost();
+				}
 				showCost(totalCost);
 			}
 		}
